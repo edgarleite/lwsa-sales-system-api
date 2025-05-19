@@ -1,0 +1,843 @@
+{
+  "info": {
+    "_postman_id": "e5f3a2b1-c8d4-4e5f-a6b7-c8d9e0f1a2b3",
+    "name": "LWSA - SALES SYSTEM",
+    "description": "API para sistema de vendas com autenticação JWT, gerenciamento de vendedores e vendas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Autenticação",
+      "description": "Endpoints para autenticação de usuários",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@empresa.com\",\n    \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "login"
+              ]
+            },
+            "description": "Autentica um usuário e retorna um token JWT"
+          },
+          "response": []
+        },
+        {
+          "name": "Registro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Novo Usuário\",\n    \"email\": \"novo@empresa.com\",\n    \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "register"
+              ]
+            },
+            "description": "Registra um novo usuário e retorna um token JWT"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "logout"
+              ]
+            },
+            "description": "Invalida o token JWT atual"
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/refresh",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "refresh"
+              ]
+            },
+            "description": "Atualiza o token JWT atual"
+          },
+          "response": []
+        },
+        {
+          "name": "Usuário Atual",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "me"
+              ]
+            },
+            "description": "Retorna os dados do usuário autenticado"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vendedores",
+      "description": "Endpoints para gerenciamento de vendedores",
+      "item": [
+        {
+          "name": "Listar Vendedores",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sellers?per_page=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sellers"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Lista todos os vendedores com paginação"
+          },
+          "response": []
+        },
+        {
+          "name": "Obter Vendedor",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sellers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sellers",
+                "1"
+              ]
+            },
+            "description": "Obtém os detalhes de um vendedor específico"
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Vendedor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"João Silva\",\n    \"email\": \"joao.silva@empresa.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/sellers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sellers"
+              ]
+            },
+            "description": "Cria um novo vendedor"
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Vendedor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"João Silva Atualizado\",\n    \"email\": \"joao.silva.atualizado@empresa.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/sellers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sellers",
+                "1"
+              ]
+            },
+            "description": "Atualiza os dados de um vendedor existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir Vendedor",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sellers/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sellers",
+                "1"
+              ]
+            },
+            "description": "Remove um vendedor do sistema (soft delete)"
+          },
+          "response": []
+        },
+        {
+          "name": "Vendas do Vendedor",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sellers/1/sales",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sellers",
+                "1",
+                "sales"
+              ]
+            },
+            "description": "Lista todas as vendas de um vendedor específico"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vendas",
+      "description": "Endpoints para gerenciamento de vendas",
+      "item": [
+        {
+          "name": "Listar Vendas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sales?per_page=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sales"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Lista todas as vendas com paginação"
+          },
+          "response": []
+        },
+        {
+          "name": "Obter Venda",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sales/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sales",
+                "1"
+              ]
+            },
+            "description": "Obtém os detalhes de uma venda específica"
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Venda",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"seller_id\": 1,\n    \"amount\": 1500.75,\n    \"sale_date\": \"2025-05-17\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/sales",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sales"
+              ]
+            },
+            "description": "Cria uma nova venda (a comissão é calculada automaticamente)"
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Venda",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"seller_id\": 1,\n    \"amount\": 2000.50,\n    \"sale_date\": \"2025-05-17\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/sales/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sales",
+                "1"
+              ]
+            },
+            "description": "Atualiza os dados de uma venda existente (a comissão é recalculada automaticamente)"
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir Venda",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/sales/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "sales",
+                "1"
+              ]
+            },
+            "description": "Remove uma venda do sistema (soft delete)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Relatórios",
+      "description": "Endpoints para geração e envio de relatórios",
+      "item": [
+        {
+          "name": "Enviar Relatórios Diários",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"date\": \"2025-05-17\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reports/send-daily",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reports",
+                "send-daily"
+              ]
+            },
+            "description": "Envia relatórios diários para todos os vendedores e para o admin"
+          },
+          "response": []
+        },
+        {
+          "name": "Reenviar Relatório",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"date\": \"2025-05-17\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reports/resend/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reports",
+                "resend",
+                "1"
+              ]
+            },
+            "description": "Reenvia o relatório para um vendedor específico"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Usuários",
+      "description": "Endpoints para gerenciamento de usuários",
+      "item": [
+        {
+          "name": "Listar Usuários",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users?per_page=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "per_page",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Lista todos os usuários com paginação"
+          },
+          "response": []
+        },
+        {
+          "name": "Obter Usuário",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "1"
+              ]
+            },
+            "description": "Obtém os detalhes de um usuário específico"
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Novo Admin\",\n    \"email\": \"novo.admin@empresa.com\",\n    \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            },
+            "description": "Cria um novo usuário admin"
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Usuário",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Admin Atualizado\",\n    \"email\": \"admin.atualizado@empresa.com\",\n    \"password\": \"654321\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "1"
+              ]
+            },
+            "description": "Atualiza os dados de um usuário existente"
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir Usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/users/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "1"
+              ]
+            },
+            "description": "Remove um usuário do sistema (soft delete)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "seu_token_jwt_aqui",
+      "type": "string"
+    }
+  ]
+}
