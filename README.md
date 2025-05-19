@@ -25,7 +25,15 @@ cp .env.example .env
 
 ---
 
-## 3. 🐳 Iniciar os containers Docker
+## 3. 🔧 Construir as imagens Docker
+
+```bash
+docker compose build
+```
+
+---
+
+## 4. 🐳 Iniciar os containers Docker
 
 ```bash
 docker compose up -d
@@ -33,7 +41,7 @@ docker compose up -d
 
 ---
 
-## 4. 🧩 Instalar dependências do Composer
+## 5. 🧩 Instalar dependências do Composer
 
 ```bash
 docker compose exec app composer install
@@ -41,7 +49,7 @@ docker compose exec app composer install
 
 ---
 
-## 5. 🔑 Gerar chave da aplicação
+## 6. 🔑 Gerar chave da aplicação
 
 ```bash
 docker compose exec app php artisan key:generate
@@ -49,7 +57,7 @@ docker compose exec app php artisan key:generate
 
 ---
 
-## 6. 🔐 Gerar chave JWT
+## 7. 🔐 Gerar chave JWT
 
 ```bash
 docker compose exec app php artisan jwt:secret
@@ -57,7 +65,7 @@ docker compose exec app php artisan jwt:secret
 
 ---
 
-## 7. 🗃️ Executar migrações
+## 8. 🗃️ Executar migrações
 
 ```bash
 docker compose exec app php artisan migrate
@@ -65,7 +73,7 @@ docker compose exec app php artisan migrate
 
 ---
 
-## 8. 🌱 Popular o banco com dados iniciais (seeders)
+## 9. 🌱 Popular o banco com dados iniciais (seeders)
 
 ```bash
 docker compose exec app php artisan db:seed
@@ -73,7 +81,7 @@ docker compose exec app php artisan db:seed
 
 ---
 
-## 9. 💨 Limpar caches (útil após alterações no ambiente ou configurações)
+## 10. 💨 Limpar caches (útil após alterações no ambiente ou configurações)
 
 ```bash
 docker compose exec app php artisan config:clear
@@ -84,7 +92,7 @@ docker compose exec app php artisan view:clear
 
 ---
 
-## 10. 🔒 Configurar permissões (se necessário)
+## 11. 🔒 Configurar permissões (se necessário)
 
 ```bash
 docker compose exec app chmod -R 777 storage bootstrap/cache
@@ -92,7 +100,7 @@ docker compose exec app chmod -R 777 storage bootstrap/cache
 
 ---
 
-## 11. 🧾 Verificar status dos containers
+## 12. 🧾 Verificar status dos containers
 
 ```bash
 docker compose ps
@@ -100,7 +108,7 @@ docker compose ps
 
 ---
 
-## 12. 🔍 Visualizar logs da aplicação
+## 13. 🔍 Visualizar logs da aplicação
 
 ```bash
 docker compose logs app
@@ -108,15 +116,15 @@ docker compose logs app
 
 ---
 
-## 13. 🧪 Executar testes unitários
+## 14. 🧪 Executar testes unitários
 
 ```bash
-docker compose exec app php artisan test --coverage
+docker compose exec app php artisan test
 ```
 
 ---
 
-## 14. ↻ Reiniciar containers
+## 15. ↻ Reiniciar containers
 
 ```bash
 docker compose restart
@@ -124,7 +132,7 @@ docker compose restart
 
 ---
 
-## 15. ⏹️ Parar containers
+## 16. ⏹️ Parar containers
 
 ```bash
 docker compose down
@@ -132,7 +140,7 @@ docker compose down
 
 ---
 
-## 16. 🖥️ Acessar o shell do container da aplicação
+## 17. 🖥️ Acessar o shell do container da aplicação
 
 ```bash
 docker compose exec app bash
@@ -140,7 +148,7 @@ docker compose exec app bash
 
 ---
 
-## 17. 🛢️ Acessar o banco de dados MySQL
+## 18. 🛢️ Acessar o banco de dados MySQL
 
 ```bash
 docker compose exec db mysql -u user -psecret sales_system
