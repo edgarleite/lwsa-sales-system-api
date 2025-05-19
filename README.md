@@ -9,8 +9,8 @@ Este guia detalha todos os passos necessários para configurar e rodar o projeto
 ## 1. 📦 Clonar o repositório
 
 ```bash
-git clone [url-do-repositorio] projeto
-cd projeto
+git clone https://github.com/edgarleite/lwsa-sales-system-api.git
+cd lwsa-sales-system-api
 ```
 
 ---
