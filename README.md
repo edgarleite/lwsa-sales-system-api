@@ -1,16 +1,16 @@
 ---
 
-# 🛠️ Setup do Projeto Laravel com Docker
+# 🛠️ Setup e Documentação do Projeto Laravel com Docker
 
-Este guia detalha todos os passos necessários para configurar e rodar o projeto Laravel utilizando Docker.
+Este guia detalha todos os passos necessários para configurar, rodar e testar a API do projeto Laravel utilizando Docker.
 
 ---
 
 ## 1. 📦 Clonar o repositório
 
 ```bash
-git clone https://github.com/edgarleite/lwsa-sales-system-api.git
-cd lwsa-sales-system-api
+git clone [url-do-repositorio] projeto
+cd projeto
 ```
 
 ---
@@ -25,7 +25,7 @@ cp .env.example .env
 
 ---
 
-## 3. 🔧 Construir as imagens Docker
+## 3. 🔧 Construir as imagens Docker (se necessário)
 
 ```bash
 docker compose build
@@ -152,6 +152,108 @@ docker compose exec app bash
 
 ```bash
 docker compose exec db mysql -u user -psecret sales_system
+```
+---
+
+## 🔧 Acessar a API via Navegador (após deploy)
+
+### URL Raiz:
+```
+http://localhost:8080/
+```
+
+### URL Base da API:
+```
+http://localhost:8080/api/v1
+```
+
+> ✅ Após executar `docker compose up -d`, a aplicação estará disponível nesses endereços. Caso precise alterar a porta, verifique as configurações em `docker-compose.yml`.
+
+---
+
+## 📚 Endpoints da API
+
+Abaixo estão listados os endpoints da API com base na Postman Collection fornecida.
+
+---
+
+### 🔐 **Autenticação**
+
+| Método | Endpoint               | Descrição                         |
+|--------|------------------------|-----------------------------------|
+| POST   | `/login`               | Autentica um usuário             |
+| POST   | `/register`            | Registra um novo usuário         |
+| POST   | `/logout`              | Invalida o token JWT             |
+| POST   | `/refresh`             | Atualiza o token JWT             |
+| GET    | `/me`                  | Retorna dados do usuário logado  |
+
+---
+
+### 👨‍💼 **Vendedores**
+
+| Método | Endpoint                    | Descrição                               |
+|--------|-----------------------------|-----------------------------------------|
+| GET    | `/sellers?per_page=10`      | Lista vendedores com paginação          |
+| GET    | `/sellers/{id}`             | Obtém detalhes de um vendedor           |
+| POST   | `/sellers`                  | Cria um novo vendedor                   |
+| PUT    | `/sellers/{id}`             | Atualiza dados de um vendedor           |
+| DELETE | `/sellers/{id}`             | Exclui (soft delete) um vendedor        |
+| GET    | `/sellers/{id}/sales`       | Lista todas as vendas de um vendedor    |
+
+---
+
+### 💰 **Vendas**
+
+| Método | Endpoint                | Descrição                                 |
+|--------|-------------------------|-------------------------------------------|
+| GET    | `/sales?per_page=10`    | Lista vendas com paginação                |
+| GET    | `/sales/{id}`           | Obtém detalhes de uma venda               |
+| POST   | `/sales`                | Cria uma nova venda                       |
+| PUT    | `/sales/{id}`           | Atualiza dados de uma venda               |
+| DELETE | `/sales/{id}`           | Exclui (soft delete) uma venda            |
+
+---
+
+### 📊 **Relatórios**
+
+| Método | Endpoint                  | Descrição                                      |
+|--------|---------------------------|------------------------------------------------|
+| POST   | `/reports/send-daily`     | Envia relatórios diários para todos os vendedores |
+| POST   | `/reports/resend/{id}`    | Reenvia relatório para um vendedor específico   |
+
+---
+
+## 📦 Arquivo da Collection do Postman
+
+O arquivo pode ser importado no Postman:
+
+```
+sales_system_postman_collection.json
+```
+
+> 💡 Importe esse arquivo no Postman para testar facilmente todos os endpoints.
+
+### Variáveis disponíveis na collection:
+
+| Nome       | Valor Padrão                     | Tipo   |
+|------------|----------------------------------|--------|
+| `base_url` | `http://localhost:8080`          | string |
+| `token`    | `seu_token_jwt_aqui`             | string |
+
+---
+
+## 🌐 Testando a API via Navegador
+
+Como exemplo, para listar os primeiros 10 vendedores:
+
+```
+http://localhost:8080/api/v1/sellers?per_page=10
+```
+
+> ⚠️ Você precisa estar autenticado! Use o endpoint `/login` ou insira o token manualmente no header:
+
+```http
+Authorization: Bearer {{token}}
 ```
 
 ---
